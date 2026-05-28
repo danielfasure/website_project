@@ -1,0 +1,26 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+
+DATABASE_URL = (
+    "postgresql://postgres:Ayomikun12!@192.168.1.253:5432/LibrarySystem"
+) # this is the url the driver, the username, password, then hostname, then database. 
+
+engine = create_engine(DATABASE_URL)# create the connection to the url where this database is stor 
+#session local is the factory where the work is done 
+# session local has method to  handle the data in the database  
+SessionLocal = sessionmaker(# 
+    autoflush=False,
+    autocommit=False,
+    bind=engine
+)
+
+Base = declarative_base()# this class can be intheritanted by table we want to be able to store and alter 
+
+
+def get_db(): # will give you an the instance of the of session but only if session local class can be created 
+    db = SessionLocal()
+
+    try:
+        yield db
+    finally:
+        db.close()
