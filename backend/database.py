@@ -8,7 +8,7 @@ DATABASE_URL = (
 engine = create_engine(DATABASE_URL)# create the connection to the url where this database is stor 
 #session local is the factory where the work is done 
 # session local has method to  handle the data in the database  
-SessionLocal = sessionmaker(# 
+SessionLocal = sessionmaker(
     autoflush=False,
     autocommit=False,
     bind=engine

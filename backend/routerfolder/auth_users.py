@@ -27,6 +27,7 @@ bcrypt_context = CryptContext(
     schemes=["bcrypt"],
     deprecated="auto"
 )
+
 def create_access_token(username: str, user_id: int, email:str,role:str,expires_delta:timedelta):
     encode = {
         "sub": username,
