@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends,HTTPException
+from fastapi import APIRouter, Depends,HTTPException,Request
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import jwt,JWTError
@@ -6,22 +6,38 @@ from datetime import datetime, timedelta,timezone
 from typing import Annotated
 from starlette import status
 from fastapi.security import OAuth2PasswordRequestForm,OAuth2PasswordBearer
+from fastapi.templating import Jinja2Templates
+
 
 from database import get_db
 from models import User,Librarys
 from schemas.user_validate import UserCreate
+
+router = APIRouter(
+    prefix="/auth",
+    tags=["auth"]
+)
 SECRET_KEY = "daniellibrarykey"
 ALGORITHM = "HS256"
 oaut2_bearer = OAuth2PasswordBearer(tokenUrl="login")
 
 brcrypt_context =CryptContext(schemes=['bcrypt'],deprecated='auto')
 db_dependency = Annotated[Session,Depends(get_db)]
+template = Jinja2Templates(directory="../frontend/webpages")
+
+### pages 
+
+@router.get("/login-page")
+def render_login_page(request:Request):
+    return template.TemplateResponse("login.html",{"request":request})
+@router.get("/register-page")
+def render_login_page(request:Request):
+    return template.TemplateResponse("register.html",{"request":request})
 
 
-router = APIRouter(
-    prefix="/auth",
-    tags=["Auth"]
-)
+
+###endpoint 
+
 
 bcrypt_context = CryptContext(
     schemes=["bcrypt"],
@@ -44,7 +60,7 @@ def create_access_token(username: str, user_id: int, email:str,role:str,expires_
 
 async def get_current_user(token:Annotated[str,Depends(oaut2_bearer)]):
     try:
-        payload = jwt.decode(token,secret_key,algorithms=[ALGORITHM])
+        payload = jwt.decode(token,SECRET_KEY,algorithms=[ALGORITHM])
         username: str = payload.get('sub')
         user_id:int = payload.get('id')
         user_role:str=payload.get('role')

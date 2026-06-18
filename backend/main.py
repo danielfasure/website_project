@@ -5,21 +5,14 @@ from models import Base
 from routerfolder.auth_users import router 
 from routerfolder import library_handler
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 library_router= library_handler.router
 app = FastAPI()
-origins = [
-    "http://localhost:5173", # Default Vite port
-]
+
 
 Base.metadata.create_all(bind=engine)
-templates =Jinja2Templates(directory="../frontend")
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+templates =Jinja2Templates(directory="../frontend/webpages")
+app.mount("/frontend/static",StaticFiles(directory="../frontend/functionality"),name="static")
 @app.get("/")
 def test(request : Request):
     return templates.TemplateResponse("index.html",{"request":request})
