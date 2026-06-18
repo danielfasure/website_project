@@ -16,7 +16,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String, unique=True)
     email = Column(String, unique=True)
-    password = Column(String)
+    hashed_password = Column(String)
 
 class Books(Base):
     __tablename__ = "books"
