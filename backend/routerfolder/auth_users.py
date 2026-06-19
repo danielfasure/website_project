@@ -126,6 +126,9 @@ async def create_user(db: db_dependency,
 
     db.add(create_user_model)
     db.commit()
+
+
+    
 @router.post("/token", response_model=Token)
 async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
                                  db: db_dependency):
@@ -137,8 +140,8 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
 
     return {'access_token': token, 'token_type': 'bearer'}    
 
-@router.get("/get_library")
-async def retrieve_library(user:user_dependency,db:db_dependency):
+@router.get("/get_users")
+async def retrieve_user(user:user_dependency,db:db_dependency):
     if user is None:
         raise HTTPException(status_code=401,detail="user not found")
-    db.query(Librarys).all()
+    return db.query(User).all()
