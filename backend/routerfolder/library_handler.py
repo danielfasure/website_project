@@ -25,24 +25,30 @@ user_depedency = Annotated[Session,Depends(get_current_user)]
 
 
 ### endpoint
-@router.get("./showcase")
-def get_library(db:db_dependency, ):
-    return db.query(Librarys).all
+@router.get("/showcase")
+def get_library(db:db_dependency,user:user_depedency ):
+     if user is None:
+        raise HTTPException(status_code=401,detail="user not found")
+     return db.query(Librarys).all
 
-@router.get("./showcase/{libraryid}")
-async def get_library(db:db_dependency,libraryid:int):
-    current_library = db.query(Librarys).filter(Librarys.id==libraryid).first()
-    if current_library is not None:
+@router.get("/showcase/{libraryid}")
+async def get_library(db:db_dependency,libraryid:int,user:user_depedency):
+     if user is None:
+        raise HTTPException(status_code=401,detail="user not found")
+     current_library = db.query(Librarys).filter(Librarys.id==libraryid).first()
+     if current_library is not None:
         return current_library
-    raise HTTPException(status_code=404, detail='libraries not found ')
+     raise HTTPException(status_code=404, detail='libraries not found ')
     
 
 
 @router.post("/add_library")
-async def add_library(db:db_dependency,user_db:user_depedency,library_request:Library_maker):
+async def add_library(db:db_dependency,user:user_depedency,library_request:Library_maker):
+    if user is None:
+        raise HTTPException(status_code=401,detail="user not found")
     library_model = Librarys(**library_request.model_dump())
-    user_db.add(library_model)
-    user_db.commit()
+    db.add(library_model)
+    db.commit()
 
 @router.put("/update_library/{libraryid}")
 async def add_library(db:db_dependency,user_db:user_depedency,library_request:Library_maker,libraryid:int):

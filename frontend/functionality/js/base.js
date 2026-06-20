@@ -174,23 +174,25 @@
             const form = event.target;
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
-
+            
             if (data.password !== data.password2) {
                 alert("Passwords do not match");
                 return;
             }
-
+            
             const payload = {
-                email: data.email,
-                username: data.username,
-                first_name: data.firstname,
-                last_name: data.lastname,
-                role: data.role,
-                phone_number: data.phone_number,
-                password: data.password
+              email: data.email,
+              username: data.username,
+              first_name: data.first_name,
+              last_name: data.last_name,
+              role: data.role,
+              phone_number: data.phone_number,
+              password: data.password
             };
 
+           
             try {
+                
                 const response = await fetch('/auth', {
                     method: 'POST',
                     headers: {
@@ -198,6 +200,7 @@
                     },
                     body: JSON.stringify(payload)
                 });
+                alert(console.log(await response.json()));
 
                 if (response.ok) {
                     window.location.href = "/";
@@ -212,9 +215,9 @@
             }
         });
     }
+     console.log("NEW REGISTER JS LOADED");
 
-
-
+   
 
 
     // Helper function to get a cookie by name

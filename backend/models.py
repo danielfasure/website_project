@@ -17,6 +17,10 @@ class User(Base):
     username = Column(String, unique=True)
     email = Column(String, unique=True)
     hashed_password = Column(String)
+    role=Column(String)
+    phone=Column(String)
+    first_name=Column(String)
+    last_name=Column(String)
 
 class Books(Base):
     __tablename__ = "books"
@@ -24,25 +28,10 @@ class Books(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-    library_id = Column(
-        Integer,
-        ForeignKey("librarys.id")
-    )
-
-    auth_id = Column(
-        Integer,
-        ForeignKey("authors.id")
-    )
-
-    library = relationship(
-        "Librarys",
-        back_populates="books"
-    )
-
-    author = relationship(
-        "Authors",
-        back_populates="books"
-    )
+    authorid = Column(Integer,ForeignKey("authors.id"))
+    libraryid = Column(Integer,ForeignKey("librarys.id"))
+    userid=Column(Integer,ForeignKey("users.id"))
+   
    
 class Authors(Base):
     __tablename__ = "authors"
@@ -50,10 +39,6 @@ class Authors(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-    books = relationship(
-        "Books",
-        back_populates="author"
-    )
 
 
 
@@ -64,11 +49,6 @@ class Librarys(Base):
     name = Column(String)
     postcode = Column(String)
     capacity = Column(Integer)
-
-    books = relationship(
-        "Books",
-        back_populates="library"
-    )
 
 
 
