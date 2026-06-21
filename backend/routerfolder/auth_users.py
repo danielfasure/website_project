@@ -14,32 +14,19 @@ from models import User,Librarys
 from schemas.user_validate import UserCreate
 from schemas.model_validate import Token
 
+from starlette.responses import RedirectResponse
+
 router = APIRouter(
     prefix="/auth",
     tags=["auth"]
 )
 SECRET_KEY = "daniellibrarykey"
 ALGORITHM = "HS256"
-oaut2_bearer = OAuth2PasswordBearer(tokenUrl="login")
+oaut2_bearer = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 brcrypt_context =CryptContext(schemes=['bcrypt'],deprecated='auto')
 db_dependency = Annotated[Session,Depends(get_db)]
 template = Jinja2Templates(directory="../frontend/webpages")
-
-### pages 
-
-@router.get("/login-page")
-def render_login_page(request:Request):
-    return template.TemplateResponse("login.html",{"request":request})
-@router.get("/register-page")
-def render_login_page(request:Request):
-    return template.TemplateResponse("register.html",{"request":request})
-
-
-
-###endpoint 
-
-
 bcrypt_context = CryptContext(
     schemes=["bcrypt"],
     deprecated="auto"
@@ -85,6 +72,46 @@ def auth_user(username:str,password:str,db):
 
 
 user_dependency =Annotated[dict,Depends(get_current_user)]
+
+def redirect_to_login():
+    redirect_response =RedirectResponse(url="/auth/login-page")
+
+
+### pages 
+
+@router.get("/login-page")
+def render_login_page(request:Request):
+    return template.TemplateResponse("login.html",{"request":request})
+@router.get("/register-page")
+def render_login_page(request:Request):
+    return template.TemplateResponse("register.html",{"request":request})
+
+@router.get("/library-page")
+async def render_library_page(request:Request,db:db_dependency):
+    try:
+        user =await get_current_user(request.cookies.get('acc0ess_token'))
+        if user is None:
+            return template.TemplateResponse("login.html",{"request":request})
+        
+        library= db.query(Librarys).all()
+
+        return template.TemplateResponse("librarypage.html",{"request":request,"libraries":library,"user":user})
+
+    except:
+        return redirect_to_login()       
+
+
+
+
+
+###endpoint 
+
+
+
+
+
+
+
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_user(db: db_dependency, create_user_request: UserCreate):
     create_user_model = User(
@@ -116,5 +143,5 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
 @router.get("/get_users")
 async def retrieve_user(user:user_dependency,db:db_dependency):
     if user is None:
-        raise HTTPException(status_code=401,detail="user not found")
+         raise HTTPException(status_code=401,detail="user not found")
     return db.query(User).all()

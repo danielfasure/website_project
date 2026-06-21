@@ -107,7 +107,7 @@
 
                 if (response.ok) {
                     // Handle success
-                    window.location.href = '/todos/todo-page'; // Redirect to the todo page
+                    window.location.href = "/auth/library-page"; // Redirect to the todo page
                 } else {
                     // Handle error
                     const errorData = await response.json();
@@ -152,7 +152,7 @@
                     logout();
                     // Save token to cookie
                     document.cookie = `access_token=${data.access_token}; path=/`;
-                    window.location.href = '/'; // Change this to your desired redirect page
+                    window.location.href = '/auth/library-page'; // Change this to your desired redirect page
                 } else {
                     // Handle error
                     const errorData = await response.json();
@@ -203,7 +203,7 @@
                 alert(console.log(await response.json()));
 
                 if (response.ok) {
-                    window.location.href = "/";
+                    window.location.href = "/auth/library-page";
                 } else {
                     // Handle error
                     const errorData = await response.json();
