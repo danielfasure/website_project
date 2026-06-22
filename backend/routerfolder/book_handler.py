@@ -18,16 +18,19 @@ router = APIRouter(prefix="/book",
 db_dependency = Annotated[Session,Depends(get_db)]
 user_depedency = Annotated[Session,Depends(get_current_user)]
 ###pages 
+
 @router.get("/add_book")
-async def add_book(request:Request,library:int,user:user_depedency):
+async def add_book(request:Request,library:int,):
+     user = await get_current_user(request.cookies.get('access_token'))
      if user is None:
-        raise HTTPException(status_code=401,detail="user not found")
+           raise HTTPException(status_code=401,detail="user not found")
      return template.TemplateResponse("add_book.html",{"request":request,"library":library})
     
 
 ###endpoints
 @router.get("/userbooks")
-async def showcase_books(db:db_dependency,user:user_depedency):
+async def showcase_books(db:db_dependency,request:Request):
+     user = await get_current_user(request.cookies.get('access_token'))
      if user is None:
         raise HTTPException(status_code=401,detail="user not found")
      return db.query(Books).filter(Books.userid==user.get('id')).all()
@@ -35,17 +38,19 @@ async def showcase_books(db:db_dependency,user:user_depedency):
 
 
 @router.post("/addbook")
-async def add_library(db:db_dependency,user:user_depedency,bookmaker:books_maker,libraryid:int):
+async def add_library(db:db_dependency,bookmaker:books_maker,library:int,request:Request):
+    user = await get_current_user(request.cookies.get('access_token'))
     if user is None:
         raise HTTPException(status_code=401,detail="user not found")
     book_model=Books(**bookmaker.model_dump())
-    book_model.libraryid=libraryid
+    book_model.libraryid=library
     db.add(book_model)
     db.commit()
 
 
 @router.put("/loanbook/{bookid}")
-async def loan_book(db:db_dependency,user:user_depedency,bookid:int):
+async def loan_book(db:db_dependency,bookid:int,request:Request):
+     user = await get_current_user(request.cookies.get('access_token'))
      if user is None:
         raise HTTPException(status_code=401,detail="user not found")
      
@@ -57,7 +62,8 @@ async def loan_book(db:db_dependency,user:user_depedency,bookid:int):
         raise HTTPException(status_code=401,detail="book already owned ")
 
 @router.put("/unloanbook/{bookid}")
-async def loan_book(db:db_dependency,user:user_depedency,bookid:int):
+async def loan_book(db:db_dependency,bookid:int,request:Request):
+     user = await get_current_user(request.cookies.get('access_token'))
      if user is None:
         raise HTTPException(status_code=401,detail="user not found")
      loandedbook=db.query(Books).filter(Books.id==bookid).first()    

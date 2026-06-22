@@ -12,8 +12,8 @@ if (add_book){
             const libraryid = button.dataset.library;
 
             const payload = {
-                name: data.book_name,
-                author:data.book_author               
+                book_name: data.book_name,
+                book_author:data.book_author               
             };
               try {
                 const response = await fetch(`/book/addbook/?library=${libraryid}`, {
