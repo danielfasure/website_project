@@ -10,7 +10,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
 from database import get_db
-from models import User,Librarys
+from models import User,Librarys,Books
 from schemas.user_validate import UserCreate
 from schemas.model_validate import Token
 
@@ -89,7 +89,7 @@ def render_login_page(request:Request):
 @router.get("/library-page")
 async def render_library_page(request:Request,db:db_dependency):
     try:
-        user =await get_current_user(request.cookies.get('acc0ess_token'))
+        user =await get_current_user(request.cookies.get('access_token'))
         if user is None:
             return template.TemplateResponse("login.html",{"request":request})
         
@@ -99,7 +99,7 @@ async def render_library_page(request:Request,db:db_dependency):
 
     except:
         return redirect_to_login()       
-
+    
 
 
 

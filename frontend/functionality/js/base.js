@@ -1,3 +1,75 @@
+//addbook
+const add_book= document.getElementById('add_books')  
+if (add_book){
+    add_book.addEventListener('submit', async function(event){
+             event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            const button = document.getElementById('addbook');
+            const libraryid = button.dataset.library;
+
+            const payload = {
+                name: data.book_name,
+                author:data.book_author               
+            };
+              try {
+                const response = await fetch(`/book/addbook/?library=${libraryid}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${getCookie('access_token')}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    form.reset(); // Clear the form
+                } else {
+                    // Handle error
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.detail}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+               }
+        });
+
+        
+    }
+
+  
+  
+  
+  
+  //load books
+const load_books= document.getElementById('loadbook');
+if (load_books){
+
+
+    load_books.addEventListener('click',async function (){
+       const libraryid = this.value;
+        console.log(libraryid);
+       window.location.href =  `/book/add_book/?library=${libraryid}`;
+    });
+}
+   
+   
+   
+   
+   //entering library 
+document.querySelectorAll('.select-library').forEach(btn => {
+    btn.addEventListener('click', function () {
+        const libraryid = this.value;
+
+        window.location.href = `/lib/book-page?library_id=${libraryid}`;
+    });
+});
+
+
     // Add Todo JS
     const todoForm = document.getElementById('todoForm');
     if (todoForm) {
@@ -200,8 +272,8 @@
                     },
                     body: JSON.stringify(payload)
                 });
-                alert(console.log(await response.json()));
-
+                const result = await response.json();
+                console.log(result);
                 if (response.ok) {
                     window.location.href = "/auth/library-page";
                 } else {

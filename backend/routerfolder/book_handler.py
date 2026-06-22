@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends,HTTPException
+from fastapi import APIRouter, Depends,HTTPException,Request
 from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
 
@@ -17,7 +17,13 @@ router = APIRouter(prefix="/book",
 
 db_dependency = Annotated[Session,Depends(get_db)]
 user_depedency = Annotated[Session,Depends(get_current_user)]
-
+###pages 
+@router.get("/add_book")
+async def add_book(request:Request,library:int,user:user_depedency):
+     if user is None:
+        raise HTTPException(status_code=401,detail="user not found")
+     return template.TemplateResponse("add_book.html",{"request":request,"library":library})
+    
 
 ###endpoints
 @router.get("/userbooks")
@@ -28,7 +34,7 @@ async def showcase_books(db:db_dependency,user:user_depedency):
 
 
 
-@router.post("/add_book/{libraryid}")
+@router.post("/addbook")
 async def add_library(db:db_dependency,user:user_depedency,bookmaker:books_maker,libraryid:int):
     if user is None:
         raise HTTPException(status_code=401,detail="user not found")

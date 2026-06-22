@@ -26,7 +26,8 @@ class Books(Base):
     __tablename__ = "books"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    book_name = Column(String)
+    book_author = Column(String)
 
     authorid = Column(Integer,ForeignKey("authors.id"))
     libraryid = Column(Integer,ForeignKey("librarys.id"))

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends,HTTPException
+from fastapi import APIRouter, Depends,HTTPException,Request,Query
 from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
 
@@ -6,7 +6,7 @@ from fastapi.templating import Jinja2Templates
 from typing import Annotated
 from starlette import status
 from fastapi.security import OAuth2PasswordRequestForm,OAuth2PasswordBearer
-from routerfolder.auth_users import get_current_user
+from routerfolder.auth_users import get_current_user,redirect_to_login
 
 from database import get_db
 from models import User,Librarys,Books,Authors
@@ -18,8 +18,30 @@ router = APIRouter(prefix="/lib",
 db_dependency = Annotated[Session,Depends(get_db)]
 user_depedency = Annotated[Session,Depends(get_current_user)]
 ### pages
+@router.get("/book-page")
+async def render_book_page(
+    request: Request,
+    db: db_dependency,
+    library_id: int = Query(...)
+):
+    user = await get_current_user(request.cookies.get('access_token'))
 
+    if not user:
+        return template.TemplateResponse("login.html", {"request": request})
 
+    library = db.query(Librarys).filter(Librarys.id == library_id).first()
+
+    if not library:
+        raise HTTPException(status_code=404, detail="Library not found")
+
+    library_books = db.query(Books).filter(Books.libraryid == library_id).all()
+
+    return template.TemplateResponse("library_book.html", {
+        "request": request,
+        "library": library,
+        "library_book": library_books,
+        "user": user
+    })
 
 
 

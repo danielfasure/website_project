@@ -13,7 +13,9 @@ class Authors_maker(BaseModel):
 
 
 class books_maker(BaseModel):
-    name: str 
+    book_name: str 
+    book_author:str
+
   
 
 class Token(BaseModel):

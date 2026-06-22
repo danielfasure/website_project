@@ -23,12 +23,17 @@
                         <td>{{loop.index}}</td>
                         <td>{{library.name}}</td>
                         <td>{{library.postcode}}</td>
+                        <td>
+                          <button class="btn-primary select-library" value="{{library.id}}">
+    select library
+</button>
+                    </td>
                     </tr>
                  {% endfor %}   
                 </tbody>
             </table>
             <div class="card-footer">
-                <a href="/auth/addlibrary"><button class="btn-primary"> add library to your list </button></a>
+               <button class="btn-primary" id="addlibrary"> add library to your list </button>
             </div>
         </div>
     </div>
