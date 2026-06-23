@@ -13,8 +13,10 @@ app = FastAPI()
 
 
 Base.metadata.create_all(bind=engine)
-templates =Jinja2Templates(directory="frontend/webpages")
-app.mount("/frontend/static",StaticFiles(directory="frontend/functionality"),name="static")
+app.mount("/static", StaticFiles(directory="../frontend/functionality"), name="static")
+
+# Setup Templates using a direct relative string path
+templates = Jinja2Templates(directory="../frontend/webpages")
 @app.get("/")
 def test(request : Request):
     return templates.TemplateResponse("index.html",{"request":request})
