@@ -11,7 +11,7 @@ from routerfolder.auth_users import get_current_user
 from database import get_db
 from models import User,Librarys,Books,Authors
 from schemas.model_validate import Library_maker,books_maker,Authors_maker
-template = Jinja2Templates(directory="../frontend/webpages")
+template = Jinja2Templates(directory="frontend/webpages")
 router = APIRouter(prefix="/book",
     tags=["book"])
 
