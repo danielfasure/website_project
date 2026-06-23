@@ -1,3 +1,64 @@
+ //load library
+
+const add_library= document.getElementById('add_library')  
+if (add_library){
+    add_library.addEventListener('submit', async function(event){
+             event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+        
+            const payload = {
+                name: data.name,
+                postcode:data.postcode,
+                capacity:data.capacity               
+            };
+              try {
+                const response = await fetch(`/lib/add_library`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${getCookie('access_token')}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    form.reset(); // Clear the form
+                } else {
+                    // Handle error
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.detail}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+               }
+        });
+
+        
+    }
+
+
+
+  
+
+ //load library
+ const load_library =document.getElementById('load_library');
+if(load_library){
+    load_library.addEventListener('click',async function() {
+        window.location.href = `/lib/load-library-add`  
+        
+    });
+  
+}
+
+
+
+
+
 //addbook
 const add_book= document.getElementById('add_books')  
 if (add_book){
@@ -41,8 +102,7 @@ if (add_book){
         
     }
 
-  
-  
+
   
   
   //load books
@@ -52,9 +112,96 @@ if (load_books){
 
     load_books.addEventListener('click',async function (){
        const libraryid = this.value;
-        console.log(libraryid);
        window.location.href =  `/book/add_book/?library=${libraryid}`;
     });
+}
+   
+
+//loan books
+const loan_books= document.getElementById('loanbook');
+if(loan_books){
+    loan_books.addEventListener('click',  async function () {
+
+        const selectedBooks = [];
+
+        document.querySelectorAll('.book_selector:checked').forEach(box => {
+            selectedBooks.push(box.value);
+        });
+         if (selectedBooks.length === 0) {
+        alert("No books selected");
+        return;
+    }
+ try {
+        for (const bookId of selectedBooks) {
+
+            const response = await fetch(`/book/loanbook/${bookId}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${getCookie('access_token')}`
+                }
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                console.error(`Book ${bookId} failed:`, error.detail);
+            }
+        }
+
+        // refresh after all requests finish
+        location.reload();
+
+    } catch (err) {
+        console.error(err);
+        alert("Something went wrong");
+    }
+});
+
+
+        
+}
+   
+
+//return books
+const return_books= document.getElementById('returnbook');
+if(return_books){
+    return_books.addEventListener('click',  async function () {
+
+        const returnBooks = [];
+
+        document.querySelectorAll('.return_book_selector:checked').forEach(box => {
+            returnBooks.push(box.value);
+        });
+         if (returnBooks.length === 0) {
+        alert("No books selected");
+        return;
+    }
+ try {
+        for (const bookId of returnBooks) {
+
+            const response = await fetch(`/book/unloanbook/${bookId}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${getCookie('access_token')}`
+                }
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                console.error(`Book ${bookId} failed:`, error.detail);
+            }
+        }
+
+        // refresh after all requests finish
+        location.reload();
+
+    } catch (err) {
+        console.error(err);
+        alert("Something went wrong");
+    }
+});
+
+
+        
 }
    
    
@@ -62,8 +209,9 @@ if (load_books){
    
    //entering library 
 document.querySelectorAll('.select-library').forEach(btn => {
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', async function () {
         const libraryid = this.value;
+        const response = await fetch(`/lib/load-userbook`)
 
         window.location.href = `/lib/book-page?library_id=${libraryid}`;
     });

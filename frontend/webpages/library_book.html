@@ -1,4 +1,5 @@
 {% include 'layout.html' %}
+{% include 'user_books.html'%}
 <div class="container">
     <div class="card text-center "> 
         <div class="card-header">
@@ -18,23 +19,26 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     {% for book in library_book %}
+                      {% if book.userid is none  %}
                     <tr class="pointer">
                         <td>{{loop.index}}</td>
                         <td>{{book.book_name}}</td>
                         <td>{{book.book_author}}</td>
                         <td>
-                            <button class="select-btn "value ="{{book.id}}" >
-                                select
+                            <input type = "checkbox" class ="book_selector" value="{{book.id}}">
                           
-                            </button>
                     </td>
                     </tr>
+                    {% endif %}
                  {% endfor %}   
+               
                 </tbody>
             </table>
             <div class="card-footer">
             <button class="btn-primary" id="loadbook" value="{{ library.id }}" > add book to library</button>
+            <button class="btn-primary"  id="loanbook" value="{{library.id}}" > click to try and rent books</button><br><br>
            <a href="/auth/library-page"  > <button class="btn-primary "> return back to libraries selection </button>
               </a>
             </div>

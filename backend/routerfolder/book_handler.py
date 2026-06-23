@@ -50,16 +50,21 @@ async def add_library(db:db_dependency,bookmaker:books_maker,library:int,request
 
 @router.put("/loanbook/{bookid}")
 async def loan_book(db:db_dependency,bookid:int,request:Request):
+     
      user = await get_current_user(request.cookies.get('access_token'))
      if user is None:
-        raise HTTPException(status_code=401,detail="user not found")
+        raise HTTPException(status_code=401,detail="user not found") 
      
-     owned= db.query(Books.id).filter(Books.id==bookid).first()
-     if owned is None:
-      loandedbook=db.query(Books).filter(Books.id==bookid).first()    
-      loandedbook.userid= user.get('id')
-     else:
-        raise HTTPException(status_code=401,detail="book already owned ")
+     book = db.query(Books).filter(Books.id == bookid).first()
+
+     if not book:
+      raise HTTPException(404, "Book not found")
+
+     if book.userid is not None:
+      raise HTTPException(400, "Book already owned")
+     book.userid = user.get('id')
+     db.commit()
+    
 
 @router.put("/unloanbook/{bookid}")
 async def loan_book(db:db_dependency,bookid:int,request:Request):
@@ -67,6 +72,8 @@ async def loan_book(db:db_dependency,bookid:int,request:Request):
      if user is None:
         raise HTTPException(status_code=401,detail="user not found")
      loandedbook=db.query(Books).filter(Books.id==bookid).first()    
+     if not loandedbook:
+         raise(HTTPException(404,"book not found "))
      loandedbook.userid= None
      db.add(loandedbook)   
      db.commit()

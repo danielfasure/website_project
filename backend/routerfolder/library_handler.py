@@ -42,6 +42,32 @@ async def render_book_page(
         "library_book": library_books,
         "user": user
     })
+@router.get("/load-library-add")
+async def render_libraryadd_page(request: Request,
+    db: db_dependency):
+    user = await get_current_user(request.cookies.get('access_token'))
+    if not user:
+     return template.TemplateResponse("login.html", {"request": request})
+   
+    return template.TemplateResponse("library_adder.html", {
+        "request": request,
+    
+        "user": user
+    })
+@router.get("/load-userbook")
+async def render_libraryadd_page(request: Request,
+    db: db_dependency,libraryid:int):
+    user = await get_current_user(request.cookies.get('access_token'))
+    if not user:
+     return template.TemplateResponse("login.html", {"request": request})
+    books= db.query(Books).filter(Books.libraryid==libraryid| Books.userid==user.get('id'))
+   
+    return template.TemplateResponse("user_books.html", {
+        "request": request,
+        "librarybook":books,
+    
+        "user": user
+    })
 
 
 
@@ -65,7 +91,8 @@ async def get_library(db:db_dependency,libraryid:int,user:user_depedency):
 
 
 @router.post("/add_library")
-async def add_library(db:db_dependency,user:user_depedency,library_request:Library_maker):
+async def add_library(db:db_dependency,library_request:Library_maker,request:Request):
+    user = await get_current_user(request.cookies.get('access_token'))
     if user is None:
         raise HTTPException(status_code=401,detail="user not found")
     library_model = Librarys(**library_request.model_dump())

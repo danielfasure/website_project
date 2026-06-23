@@ -1,0 +1,43 @@
+{%include 'layout.html' %}  
+
+    <div class="container">
+        <div class="card">
+      <div class = "card-header">
+        add books
+      </div>
+      <div class="card-body">
+        <form id="add_library">
+      
+            
+               <div class="form-row">
+                <div class="form-group col-md">
+                    <label>   library name   </label>
+                    <input type="text" class="form-control" name="name" autocomplete="name" required>
+                </div>
+                <div class="form-group col-md">
+                    <label>postcode</label>
+                    <input type="text" class = "form-control" name="postcode"  autocomplete="postcode " required>
+
+                </div>
+                 <div class="form-group col-md">
+                    <label>capacity  </label>
+                    <input type="number" class = "form-control" name="capacity"  autocomplete="0" required>
+
+                </div>
+
+            </div>
+            <button type="submit" class="btn-primary text-center" id="addlibrary" > submit  </button>
+            
+
+        </form>
+        <a href="/auth/library-page"><button> return to library_picker </button></a>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+            <a href="/"><button  class = "btn-primary"> home</button ></a>
+
+            <a href="/auth/login-page"><button class="btn-primary"> login</button></a>
+
+       </div>
+    </div>
+   
