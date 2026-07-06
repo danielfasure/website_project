@@ -11,7 +11,8 @@ from routerfolder.auth_users import get_current_user,redirect_to_login
 from database import get_db
 from models import User,Librarys,Books,Authors
 from schemas.model_validate import Library_maker,books_maker,Authors_maker
-template = Jinja2Templates(directory="../frontend/webpages")
+from main import templates
+
 router = APIRouter(prefix="/lib",
     tags=["lib"])
 
@@ -27,7 +28,7 @@ async def render_book_page(
     user = await get_current_user(request.cookies.get('access_token'))
 
     if not user:
-        return template.TemplateResponse("login.html", {"request": request})
+        return templates.TemplateResponse("login.html", {"request": request})
 
     library = db.query(Librarys).filter(Librarys.id == library_id).first()
 
@@ -47,9 +48,9 @@ async def render_libraryadd_page(request: Request,
     db: db_dependency):
     user = await get_current_user(request.cookies.get('access_token'))
     if not user:
-     return template.TemplateResponse("login.html", {"request": request})
+     return templates.TemplateResponse("login.html", {"request": request})
    
-    return template.TemplateResponse("library_adder.html", {
+    return templates.TemplateResponse("library_adder.html", {
         "request": request,
     
         "user": user
@@ -59,10 +60,10 @@ async def render_libraryadd_page(request: Request,
     db: db_dependency,libraryid:int):
     user = await get_current_user(request.cookies.get('access_token'))
     if not user:
-     return template.TemplateResponse("login.html", {"request": request})
+     return templates.TemplateResponse("login.html", {"request": request})
     books= db.query(Books).filter(Books.libraryid==libraryid| Books.userid==user.get('id'))
    
-    return template.TemplateResponse("user_books.html", {
+    return templates.TemplateResponse("user_books.html", {
         "request": request,
         "librarybook":books,
     

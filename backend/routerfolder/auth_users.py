@@ -13,7 +13,7 @@ from database import get_db
 from models import User,Librarys,Books
 from schemas.user_validate import UserCreate
 from schemas.model_validate import Token
-
+from main import templates
 from starlette.responses import RedirectResponse
 
 router = APIRouter(
@@ -26,7 +26,7 @@ oaut2_bearer = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 brcrypt_context =CryptContext(schemes=['bcrypt'],deprecated='auto')
 db_dependency = Annotated[Session,Depends(get_db)]
-template = Jinja2Templates(directory="../frontend/webpages")
+
 bcrypt_context = CryptContext(
     schemes=["bcrypt"],
     deprecated="auto"
@@ -81,10 +81,10 @@ def redirect_to_login():
 
 @router.get("/login-page")
 def render_login_page(request:Request):
-    return template.TemplateResponse("login.html",{"request":request})
+    return templates.TemplateResponse("login.html",{"request":request})
 @router.get("/register-page")
 def render_login_page(request:Request):
-    return template.TemplateResponse("register.html",{"request":request})
+    return templates.TemplateResponse("register.html",{"request":request})
 
 @router.get("/library-page")
 async def render_library_page(request:Request,db:db_dependency):
@@ -92,13 +92,13 @@ async def render_library_page(request:Request,db:db_dependency):
     try:
         user =await get_current_user(request.cookies.get('access_token'))
         if user is None:
-            return template.TemplateResponse("login.html",{"request":request})
+            return templates.TemplateResponse("login.html",{"request":request})
         
         library= db.query(Librarys).all()
         if library is None:
-            template.TemplateResponse("librarypage.html",{"request":request,"user":user})
+            templates.TemplateResponse("librarypage.html",{"request":request,"user":user})
 
-        return template.TemplateResponse("librarypage.html",{"request":request,"libraries":library,"user":user})
+        return templates.TemplateResponse("librarypage.html",{"request":request,"libraries":library,"user":user})
 
     except:
         return redirect_to_login()       

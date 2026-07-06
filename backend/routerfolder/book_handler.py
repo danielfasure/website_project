@@ -11,7 +11,8 @@ from routerfolder.auth_users import get_current_user
 from database import get_db
 from models import User,Librarys,Books,Authors
 from schemas.model_validate import Library_maker,books_maker,Authors_maker
-template = Jinja2Templates(directory="../frontend/webpages")
+from main import templates
+
 router = APIRouter(prefix="/book",
     tags=["book"])
 
@@ -24,7 +25,7 @@ async def add_book(request:Request,library:int,):
      user = await get_current_user(request.cookies.get('access_token'))
      if user is None:
            raise HTTPException(status_code=401,detail="user not found")
-     return template.TemplateResponse("add_book.html",{"request":request,"library":library})
+     return templates.TemplateResponse("add_book.html",{"request":request,"library":library})
     
 
 ###endpoints
