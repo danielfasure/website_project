@@ -101,7 +101,7 @@ async def render_library_page(request:Request,db:db_dependency):
         
         library= db.query(Librarys).all()
         if library is None:
-            templates.TemplateResponse("librarypage.html",{"request":request,"user":user})
+             return templates.TemplateResponse("librarypage.html",{"request":request,"user":user})
 
         return templates.TemplateResponse("librarypage.html",{"request":request,"libraries":library,"user":user})
 
