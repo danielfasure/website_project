@@ -1,3 +1,4 @@
+import os 
 from fastapi import APIRouter, Depends,HTTPException,Request,Query
 from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
@@ -11,7 +12,10 @@ from routerfolder.auth_users import get_current_user,redirect_to_login
 from database import get_db
 from models import User,Librarys,Books,Authors
 from schemas.model_validate import Library_maker,books_maker,Authors_maker
-from main import templates
+ROUTER_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMPLATES_DIR = os.path.join(ROUTER_DIR, "..", "..", "frontend", "webpages")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
+
 
 router = APIRouter(prefix="/lib",
     tags=["lib"])
@@ -37,7 +41,7 @@ async def render_book_page(
 
     library_books = db.query(Books).filter(Books.libraryid == library_id).all()
 
-    return template.TemplateResponse("library_book.html", {
+    return templates.TemplateResponse("library_book.html", {
         "request": request,
         "library": library,
         "library_book": library_books,

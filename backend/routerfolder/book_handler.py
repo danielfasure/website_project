@@ -1,4 +1,6 @@
+import os
 from fastapi import APIRouter, Depends,HTTPException,Request
+
 from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
 
@@ -11,13 +13,16 @@ from routerfolder.auth_users import get_current_user
 from database import get_db
 from models import User,Librarys,Books,Authors
 from schemas.model_validate import Library_maker,books_maker,Authors_maker
-from main import templates
 
 router = APIRouter(prefix="/book",
     tags=["book"])
 
 db_dependency = Annotated[Session,Depends(get_db)]
 user_depedency = Annotated[Session,Depends(get_current_user)]
+ROUTER_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMPLATES_DIR = os.path.join(ROUTER_DIR, "..", "..", "frontend", "webpages")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
+
 ###pages 
 
 @router.get("/add_book")

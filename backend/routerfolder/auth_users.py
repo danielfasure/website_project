@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Depends,HTTPException,Request
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
@@ -13,7 +14,7 @@ from database import get_db
 from models import User,Librarys,Books
 from schemas.user_validate import UserCreate
 from schemas.model_validate import Token
-from main import templates
+
 from starlette.responses import RedirectResponse
 
 router = APIRouter(
@@ -26,6 +27,10 @@ oaut2_bearer = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 brcrypt_context =CryptContext(schemes=['bcrypt'],deprecated='auto')
 db_dependency = Annotated[Session,Depends(get_db)]
+
+ROUTER_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMPLATES_DIR = os.path.join(ROUTER_DIR, "..", "..", "frontend", "webpages")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 bcrypt_context = CryptContext(
     schemes=["bcrypt"],
