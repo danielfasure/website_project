@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 #) # this is the url the driver, the username, password, then hostname, then database. 
 DATABASE_URL = (
     "postgresql://tembo:tembopass@3.93.67.133:14877/appdb"
-   postgresql://postgres:[Ayomikun12!]@db.uwoncymwuaargtuqxogw.supabase.co:5432/postgres
+   
 )
 
 engine = create_engine(DATABASE_URL)# create the connection to the url where this database is stor 
@@ -28,4 +28,4 @@ def get_db(): # will give you an the instance of the of session but only if sess
     try:
         yield db
     finally:
-        db.close()
+        db.close(); 
