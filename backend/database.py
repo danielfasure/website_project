@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 # " postgresql://danieldb:qN0qkxheAAbdvLNuC9Jaha2Y8AFfRuSi@dpg-d8tfpag0697c73ciq3n0-a/library_db_gudm"
 #) # this is the url the driver, the username, password, then hostname, then database. 
 DATABASE_URL = (
-    "postgresql://tembo:tembopass@3.93.67.133:14877/appdb"
+    "postgresql://neondb_owner:npg_EUru3ZKvDz8L@ep-plain-bar-atntu453.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require"
    
 )
 
