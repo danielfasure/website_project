@@ -35,6 +35,12 @@
              <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>     role       </label>
+                    <select id="roles" name="user_roles">
+                        <option value="admin">admin </option>
+                        <option value="user">user</option>
+                        <option value="librian">librian</option>
+                
+                    </select>
                     <input type="text" class="form-control" name="role" required>
                 </div>
                 <div class="form-group col-md-6">
@@ -54,6 +60,16 @@
                     <input type="password" class = "form-control" name="password2"  autocomplete="new-password" required>
 
                 </div>
+
+
+            </div>
+            <div id ="enter_admin_code" class="form-row">
+            <div class=" form-group col-md-6">
+               
+                    <label for="admin_pin"> enter admin password </label>
+                    <input   type="text"  class="form-control"  id="admin_pin"   name="admin_pin">
+
+            </div>
 
             </div>
             <button type="submit" class="btn-primary"> sign in</button>

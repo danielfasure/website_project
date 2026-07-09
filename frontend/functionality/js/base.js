@@ -385,9 +385,27 @@ document.querySelectorAll('.select-library').forEach(btn => {
         });
     }
 
+  let role_checker = document.getElementById("roles");
+let code_opener = document.getElementById("enter_admin_code");
+
+role_checker.addEventListener("change", function(){
+alert(role_checker.value)
+       if (role_checker.value =="admin") {
+        alert("remember to enter code ");
+       code_opener.style.display = "block";
+    } else {
+     code_opener.style.display = "none"
+     alert(role_checker.value+" continue to login ");
+    }
+
+});
+    
+
     // Register JS
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
+        role_checker = document.getElementById("roles");
+         
         registerForm.addEventListener('submit', async function (event) {
             event.preventDefault();
 
@@ -399,13 +417,25 @@ document.querySelectorAll('.select-library').forEach(btn => {
                 alert("Passwords do not match");
                 return;
             }
+            if (role_checker.value== "admin"){
+         
             
+          const role_input_checker = document.querySelector('[name="admin_pin"]')
+                if(parseInt(role_input_checker.value)===1234){
+                    alert("accepted")
+                  
+                }else{
+                    alert("this is not correct ")
+
+                    return}
+        }
+          role_checker= parseInt(role_checker);
             const payload = {
               email: data.email,
               username: data.username,
               first_name: data.first_name,
               last_name: data.last_name,
-              role: data.role,
+              role: role_checker.value,
               phone_number: data.phone_number,
               password: data.password
             };
