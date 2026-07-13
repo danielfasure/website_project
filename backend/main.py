@@ -12,6 +12,7 @@ from models import Base
 from routerfolder.auth_users import router 
 from routerfolder import library_handler
 from routerfolder import book_handler
+import routerfolder.admin
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import sys
@@ -37,3 +38,4 @@ def test(request : Request):
 app.include_router(library_router)
 app.include_router(router)
 app.include_router(book_router)
+app.include_router(routerfolder.admin.router)

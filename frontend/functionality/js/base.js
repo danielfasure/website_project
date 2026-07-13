@@ -16,7 +16,7 @@ if (add_library){
                 capacity:data.capacity               
             };
               try {
-                const response = await fetch(`/lib/add_library`, {
+                const response = await fetch(`/admin/add_library`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ if (add_book){
                 book_author:data.book_author               
             };
               try {
-                const response = await fetch(`/book/addbook/?library=${libraryid}`, {
+                const response = await fetch(`/admin/add_book/?library=${libraryid}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -218,130 +218,8 @@ document.querySelectorAll('.select-library').forEach(btn => {
 });
 
 
-    // Add Todo JS
-    const todoForm = document.getElementById('todoForm');
-    if (todoForm) {
-        todoForm.addEventListener('submit', async function (event) {
-            event.preventDefault();
 
-            const form = event.target;
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-            const payload = {
-                title: data.title,
-                description: data.description,
-                priority: parseInt(data.priority),
-                complete: false
-            };
-
-            try {
-                const response = await fetch('/todos/todo', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${getCookie('access_token')}`
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    form.reset(); // Clear the form
-                } else {
-                    // Handle error
-                    const errorData = await response.json();
-                    alert(`Error: ${errorData.detail}`);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            }
-        });
-    }
-
-    // Edit Todo JS
-    const editTodoForm = document.getElementById('editTodoForm');
-    if (editTodoForm) {
-        editTodoForm.addEventListener('submit', async function (event) {
-        event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        var url = window.location.pathname;
-        const todoId = url.substring(url.lastIndexOf('/') + 1);
-
-        const payload = {
-            title: data.title,
-            description: data.description,
-            priority: parseInt(data.priority),
-            complete: data.complete === "on"
-        };
-
-        try {
-            const token = getCookie('access_token');
-            console.log(token)
-            if (!token) {
-                throw new Error('Authentication token not found');
-            }
-
-            console.log(`${todoId}`)
-
-            const response = await fetch(`/todos/todo/${todoId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                window.location.href = '/todos/todo-page'; // Redirect to the todo page
-            } else {
-                // Handle error
-                const errorData = await response.json();
-                alert(`Error: ${errorData.detail}`);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        }
-    });
-
-        document.getElementById('deleteButton').addEventListener('click', async function () {
-            var url = window.location.pathname;
-            const todoId = url.substring(url.lastIndexOf('/') + 1);
-
-            try {
-                const token = getCookie('access_token');
-                if (!token) {
-                    throw new Error('Authentication token not found');
-                }
-
-                const response = await fetch(`/todos/todo/${todoId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                if (response.ok) {
-                    // Handle success
-                    window.location.href = "/auth/library-page"; // Redirect to the todo page
-                } else {
-                    // Handle error
-                    const errorData = await response.json();
-                    alert(`Error: ${errorData.detail}`);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            }
-        });
-
-        
-    }
-
+    
     // Login JS
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
@@ -389,13 +267,13 @@ document.querySelectorAll('.select-library').forEach(btn => {
 let code_opener = document.getElementById("enter_admin_code");
 
 role_checker.addEventListener("change", function(){
-alert(role_checker.value)
+
        if (role_checker.value =="admin") {
-        alert("remember to enter code ");
+        
        code_opener.style.display = "block";
     } else {
      code_opener.style.display = "none"
-     alert(role_checker.value+" continue to login ");
+     
     }
 
 });
