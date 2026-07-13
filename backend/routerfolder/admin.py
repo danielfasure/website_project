@@ -28,12 +28,15 @@ async def delete_library(libraryid:int,user:user_depedency,db:db_dependency):
     db.query(Librarys).filter(Librarys.id==libraryid).delete()
     db.commit()
 
-@router.get("/add_book")
+@router.post("/add_book")
 async def add_book(db:db_dependency,bookmaker:books_maker,library:int,request:Request):
     user = await get_current_user(request.cookies.get('access_token'))
-    if user is None:
+    if user is None or user.get('role')!='admin':
         raise HTTPException(status_code=401,detail="user not found")
+    if library is None:
+        raise HTTPException(status_code=404,detail="stoppppppp")
     book_model=Books(**bookmaker.model_dump())
+
     book_model.libraryid=library
     db.add(book_model)
     db.commit()

@@ -18,7 +18,6 @@ class User(Base):
     email = Column(String, unique=True)
     hashed_password = Column(String)
     role=Column(String)
-    phone=Column(String)
     first_name=Column(String)
     last_name=Column(String)
 

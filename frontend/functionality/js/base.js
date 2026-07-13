@@ -77,15 +77,14 @@ if (add_book){
                 book_author:data.book_author               
             };
               try {
-                const response = await fetch(`/admin/add_book/?library=${libraryid}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${getCookie('access_token')}`
-                    },
-                    body: JSON.stringify(payload)
-                });
-
+                const response = await fetch(`/admin/add_book?library=${libraryid}`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+});
                 if (response.ok) {
                     form.reset(); // Clear the form
                 } else {
@@ -307,7 +306,7 @@ role_checker.addEventListener("change", function(){
 
                     return}
         }
-          role_checker= parseInt(role_checker);
+          
             const payload = {
               email: data.email,
               username: data.username,
@@ -331,7 +330,7 @@ role_checker.addEventListener("change", function(){
                 const result = await response.json();
                 console.log(result);
                 if (response.ok) {
-                    window.location.href = "/auth/library-page";
+                    window.location.href = "/auth/login-page";
                 } else {
                     // Handle error
                     const errorData = await response.json();
