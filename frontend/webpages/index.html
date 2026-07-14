@@ -1,6 +1,6 @@
 {% include 'layout.html'%}
 
-<div class="px-3 py-2 border-bottom mb-3">
+<div class="px-3 py-2  mb-3">
      <div class="container d-flex flex-wrap justify-content-center">
         
           
@@ -11,45 +11,54 @@
    
     <div class="col-lg-3 mx-auto">
       <h1> About</h1>
-      <p class="lead mb-6">portal app where user can view book and loan them to read and borrowed at libraries in our systemr<br> user must return book back in 30 days to avoid fine 
+      <p class="lead mb-6">portal app where user can view book and loan them to read and borrowed at libraries in our system<br> user must return book back in 30 days to avoid fine 
       <br>
       user will be able to view books and see a short discription regarding the book 
       with a rating score attach to the book with review being able to viewed.
       </p>
 
       
-    </div>
-    <div class="row" style="height: 50px;">
-    <div class=" text-center col-lg-4 " style="background-color: cadetblue;">
-      <h1>the number one rated book </h1>
-      <p>
-       macbeth by shakespear
-
-      </p>
-    </div>
-    <div class=" text-center col-lg-4 border-bottom" style="background-color: red;">
-      <h1>the number two rated book </h1>
-      <p>
-       BFG  by road dahl
-
-
-      </p>
-    </div>
-    <div class=" text-center col-lg-4 border-bottom" style="background-color: blueviolet;">
-      <h1>the number three rated book </h1>
-      <p>
-       IT by Stephen king
-       
-
-      </p>
-    </div>
-    </div>
+    </div>otheloo
+  <div class="row">
+    <div class="card col-lg-4" >
+  <img class="card-img-top" src="{{url_for('static',path='/images/macbeth.jpg')}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Macbeth </h5>
+    <p class="card-text"> number one rate book </p>
+    <p class="card-text"> user have rated this book 5/5  </p>
+    <p class="card-text"> the category for this book is <span style="font-weight: bold;">drama</span> <span style="font-weight: bold;"> play</span></p>
+    <a href="#" class="btn btn-primary">view libraries that have this book</a>
+  </div>
+ </div>
+   <div class="card col-lg-4" >
+  <img class="card-img-top" src="{{url_for('static',path='/images/bfg.jpeg')}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">BFG </h5>
+    <p class="card-text"> number two rate book </p>
+    <p class="card-text"> user have rated this book 4.9/5  </p>
+    <p class="card-text"> the category for this book is <span style="font-weight: bold;">adventure</span> <span style="font-weight: bold;"> fantasy</span></p>
+    <a href="#" class="btn btn-primary">view libraries that have this book</a>
+  </div>
+ </div>
+   <div class="card col-lg-4" >
+  <img class="card-img-top" src="{{url_for('static',path='/images/otheloo.jpg')}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">othello </h5>
+    <p class="card-text"> number three rate book </p>
+    <p class="card-text"> user have rated this book 4.8/5  </p>
+    <p class="card-text"> the category for this book is <span style="font-weight: bold;">drama</span> <span style="font-weight: bold;"> play</span></p>
+    <a href="#" class="btn btn-primary">view libraries that have this book</a>
+  </div>
+ </div>
+</div>
+   
+    
     <div class="overflow-hidden" >
       <div class="container px-5">
         
       </div>
     </div>        
-<footer style="background-color: blanchedalmond; height: 50px;">
-    <span><i class="fa-regular fa-copyright"></i> made by daniel</span>
+
+    <span><i class="fa-regular fa-copyright"></i>  by daniel fasure</span>
 
 
