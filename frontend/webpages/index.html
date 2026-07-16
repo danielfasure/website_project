@@ -1,24 +1,53 @@
 {% include 'layout.html'%}
-  <div class="jumbotron">
+  <div class="jumbotron text-center">
     <h1>book loaner </h1>
     <p>find books to rent in your area.<br> you can reserve a book for a day or borrow a book for 30 days </p>
   </div>
         
-<div class="px-4 pt-5 my-5 text-center border-bottom">
-   
-    <div class="col-lg-3 mx-auto">
-      <h1> About</h1>
-      <p class="lead mb-6">portal app where user can view book and loan them to read and borrowed at libraries in our system<br> user must return book back in 30 days to avoid fine 
+
+   <div class="row text-center">
+    <div class="card col-lg-3 mx-auto">
+    <div class="card-body "> 
+      <div class="card-title"> 
+        <h1> features</h1>
+      </div>
+      <p class="lead mb-6">portal app where user can view book and loan them to read and borrowed at libraries in our system
       <br>
+     
+      </p>
+    </div>
+    </div>
+
+     <div class="card col-lg-3 mx-auto">
+    <div class="card-body text-center"> 
+      <div class="card-title"> 
+        <h1> what is our mission </h1>
+      </div>
+      <p class="lead mb-6">to allow the sharing and distrubution of books to be easier. we aim to promote reading.
       user will be able to view books and see a short discription regarding the book 
       with a rating score attach to the book with review being able to viewed.
       </p>
-
+    </div>
+    </div>
+     <div class="card col-lg-3 mx-auto">
+    <div class="card-body text-center"> 
+      <div class="card-title"> 
+        <h1> how you can help </h1>
+      </div>
+      <p class="lead mb-6 ">
+        leave reviews on books you have you have rented or read to give feed back to other 
+     
+      </p>
+    </div>
       
     </div>
-  <div class="row">
-    <div class="card col-lg-4" >
-  <img class="card-img-top" src="{{url_for('static',path='/images/macbeth.jpg')}}" alt="Card image cap" style="height: 30px;">
+    </div>
+    <br>
+  <h1 > these are our most popular checked out books  </h1>
+  <div class="row my-4">
+    
+    <div class="card col-lg-4 " >
+  <img class="card-img-top" src="{{url_for('static',path='/images/macbeth.jpg')}}" alt="Card image cap" style="height: 100px; width: 100px;">
   <div class="card-body">
     <h5 class="card-title">Macbeth </h5>
     <p class="card-text"> number one rate book </p>
@@ -28,7 +57,7 @@
   </div>
  </div>
    <div class="card col-lg-4" >
-  <img class="card-img-top" src="{{url_for('static',path='/images/bfg.jpeg')}}" alt="Card image cap">
+  <img class="card-img-top" src="{{url_for('static',path='/images/bfg.jpeg')}}" alt="Card image cap" style="height: 100px; width: 100px;" >
   <div class="card-body">
     <h5 class="card-title">BFG </h5>
     <p class="card-text"> number two rate book </p>
@@ -38,7 +67,7 @@
   </div>
  </div>
    <div class="card col-lg-4" >
-  <img class="card-img-top" src="{{url_for('static',path='/images/otheloo.jpg')}}" alt="Card image cap">
+  <img class="card-img-top" src="{{url_for('static',path='/images/otheloo.jpg')}}" alt="Card image cap" style="height: 100px;width: 100px;">
   <div class="card-body">
     <h5 class="card-title">othello </h5>
     <p class="card-text"> number three rate book </p>
