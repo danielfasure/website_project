@@ -90,6 +90,20 @@ def render_login_page(request:Request):
 @router.get("/register-page")
 def render_login_page(request:Request):
     return templates.TemplateResponse("register.html",{"request":request})
+@router.get("/portal")
+async def render_user_portal(request:Request,db:db_dependency):
+    try:
+        user =await get_current_user(request.cookies.get('access_token'))
+        if user is None:
+            return templates.TemplateResponse("login.html",{"request":request}) 
+        library= db.query(Librarys).all()
+        if library is None:       
+            return templates.TemplateResponse("librarypage.html",{"request":request,"user":user})
+        return templates.TemplateResponse("librarypage.html",{"request":request,"libraries":library,"user":user})
+    except:
+        return redirect_to_login()   
+
+
 
 @router.get("/library-page")
 async def render_library_page(request:Request,db:db_dependency):
@@ -106,8 +120,18 @@ async def render_library_page(request:Request,db:db_dependency):
         return templates.TemplateResponse("librarypage.html",{"request":request,"libraries":library,"user":user})
 
     except:
-        return redirect_to_login()       
-    
+        return redirect_to_login()   
+
+@router.get("/edit_user_info")
+async def render_library_page(request:Request,db:db_dependency):
+    try:
+        user =await get_current_user(request.cookies.get('access_token'))
+        if user is None:
+            return templates.TemplateResponse("login.html",{"request":request,"user":user})     
+        return templates.TemplateResponse("edit_user_info.html",{"request":request,"user":user})       
+       
+    except:
+        return redirect_to_login()
 
 
 

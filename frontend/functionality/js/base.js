@@ -249,7 +249,7 @@ document.querySelectorAll('.select-library').forEach(btn => {
                     logout();
                     // Save token to cookie
                     document.cookie = `access_token=${data.access_token}; path=/`;
-                    window.location.href = '/auth/library-page'; // Change this to your desired redirect page
+                    window.location.href = '/auth/library-page'; 
                 } else {
                     // Handle error
                     const errorData = await response.json();
@@ -276,6 +276,14 @@ role_checker.addEventListener("change", function(){
     }
 
 });
+//load edit user page 
+let load_user_edit_button = document.getElementById("load_edit_user")
+    load_user_edit_button.addEventListener("click",function(){
+    
+
+        window.location.href = `/auth/edit_user_info`;
+ 
+    });
     
 
     // Register JS
