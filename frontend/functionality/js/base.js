@@ -280,7 +280,7 @@ role_checker.addEventListener("change", function(){
 let load_user_edit_button = document.getElementById("load_edit_user")
     load_user_edit_button.addEventListener("click",function(){
     
-
+            alert("helooo")
         window.location.href = `/auth/edit_user_info`;
  
     });
