@@ -1,90 +1,319 @@
 {% include 'layout.html'%}
-  <div class="jumbotron text-center">
-    <h1>book loaner </h1>
-    <p>find books to rent in your area.<br> you can reserve a book for a day or borrow a book for 30 days </p>
-  </div>
-        
+  ```html
+<!-- Hero -->
+<section class="hero-section text-center">
+    <div class="container">
+        <span class="hero-badge">
+            <i class="fa-solid fa-book-open"></i>
+            Library Loaner
+        </span>
 
-   <div class="row text-center">
-    <div class="card col-lg-3 mx-auto">
-    <div class="card-body "> 
-      <div class="card-title"> 
-        <h1> features</h1>
-      </div>
-      <p class="lead mb-6">portal app where user can view book and loan them to read and borrowed at libraries in our system
-      <br>
-     
-      </p>
-    </div>
-    </div>
+        <h1 class="hero-title">
+            Discover your next <span>great read.</span>
+        </h1>
 
-     <div class="card col-lg-3 mx-auto">
-    <div class="card-body text-center"> 
-      <div class="card-title"> 
-        <h1> what is our mission </h1>
-      </div>
-      <p class="lead mb-6">to allow the sharing and distrubution of books to be easier. we aim to promote reading.
-      user will be able to view books and see a short discription regarding the book 
-      with a rating score attach to the book with review being able to viewed.
-      </p>
-    </div>
-    </div>
-     <div class="card col-lg-3 mx-auto">
-    <div class="card-body text-center"> 
-      <div class="card-title"> 
-        <h1> how you can help </h1>
-      </div>
-      <p class="lead mb-6 ">
-        leave reviews on books you have you have rented or read to give feed back to other 
-     
-      </p>
-    </div>
-      
-    </div>
-    </div>
-    <br>
-  <h1 > these are our most popular checked out books  </h1>
-  <div class="row my-4">
-    
-    <div class="card col-lg-4 " >
-  <img class="card-img-top" src="{{url_for('static',path='/images/macbeth.jpg')}}" alt="Card image cap" style="height: 100px; width: 100px;">
-  <div class="card-body">
-    <h5 class="card-title">Macbeth </h5>
-    <p class="card-text"> number one rate book </p>
-    <p class="card-text"> user have rated this book 5/5  </p>
-    <p class="card-text"> the category for this book is <span style="font-weight: bold;">drama</span> <span style="font-weight: bold;"> play</span></p>
-    <a href="#" class="btn btn-primary">view libraries that have this book</a>
-  </div>
- </div>
-   <div class="card col-lg-4" >
-  <img class="card-img-top" src="{{url_for('static',path='/images/bfg.jpeg')}}" alt="Card image cap" style="height: 100px; width: 100px;" >
-  <div class="card-body">
-    <h5 class="card-title">BFG </h5>
-    <p class="card-text"> number two rate book </p>
-    <p class="card-text"> user have rated this book 4.9/5  </p>
-    <p class="card-text"> the category for this book is <span style="font-weight: bold;">adventure</span> <span style="font-weight: bold;"> fantasy</span></p>
-    <a href="#" class="btn btn-primary">view libraries that have this book</a>
-  </div>
- </div>
-   <div class="card col-lg-4" >
-  <img class="card-img-top" src="{{url_for('static',path='/images/otheloo.jpg')}}" alt="Card image cap" style="height: 100px;width: 100px;">
-  <div class="card-body">
-    <h5 class="card-title">othello </h5>
-    <p class="card-text"> number three rate book </p>
-    <p class="card-text"> user have rated this book 4.8/5  </p>
-    <p class="card-text"> the category for this book is <span style="font-weight: bold;">drama</span> <span style="font-weight: bold;"> play</span></p>
-    <a href="#" class="btn btn-primary">view libraries that have this book</a>
-  </div>
- </div>
-</div>
-   
-    
-    <div class="overflow-hidden" >
-      <div class="container px-5">
-        
-      </div>
-    </div>        
+        <p class="hero-text">
+            Find books available at libraries in your area,
+            reserve them for a day, or borrow them for up to 30 days.
+        </p>
 
-    <span><i class="fa-regular fa-copyright"></i>  by daniel fasure</span>
+        <div class="hero-buttons">
+            <a href="/books" class="btn btn-primary btn-lg">
+                <i class="fa-solid fa-book"></i>
+                Browse Books
+            </a>
+
+            <a href="/libraries" class="btn btn-outline-dark btn-lg">
+                <i class="fa-solid fa-location-dot"></i>
+                Find a Library
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- Features -->
+<section class="section-padding">
+    <div class="container">
+
+        <div class="section-heading text-center">
+            <span class="section-label">LIBRARY LOANER</span>
+            <h2>Everything you need to enjoy reading</h2>
+            <p>
+                Discover books, find libraries and share your reading experience.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Feature 1 -->
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+
+                    <h3>Discover Books</h3>
+
+                    <p>
+                        Browse our collection of books and find something
+                        new to read based on your interests.
+                    </p>
+
+                </div>
+            </div>
+
+
+            <!-- Feature 2 -->
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+
+                    <h3>Our Mission</h3>
+
+                    <p>
+                        We want to make sharing and discovering books easier
+                        while encouraging people to read more.
+                    </p>
+
+                </div>
+            </div>
+
+
+            <!-- Feature 3 -->
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+
+                    <h3>Share Your Experience</h3>
+
+                    <p>
+                        Leave reviews and ratings on books you've read
+                        to help other readers discover their next book.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Popular Books -->
+<section class="popular-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <span class="section-label">TRENDING NOW</span>
+
+            <div class="d-flex justify-content-between align-items-end flex-wrap gap-3">
+
+                <div>
+                    <h2>Popular books</h2>
+                    <p>
+                        See what other readers are borrowing.
+                    </p>
+                </div>
+
+                <a href="/books" class="view-all-link">
+                    View all books
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Macbeth -->
+            <div class="col-lg-4 col-md-6">
+
+                <article class="book-card">
+
+                    <div class="book-image-wrapper">
+                        <img
+                            src="{{url_for('static',path='/images/macbeth.jpg')}}"
+                            alt="Macbeth book cover"
+                            class="book-image"
+                        >
+
+                        <span class="book-position">
+                            #1
+                        </span>
+                    </div>
+
+                    <div class="book-content">
+
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <strong>5.0</strong>
+                            <span>rating</span>
+                        </div>
+
+                        <h3>Macbeth</h3>
+
+                        <p class="book-description">
+                            A classic Shakespearean tragedy filled with
+                            ambition, power and betrayal.
+                        </p>
+
+                        <div class="book-tags">
+                            <span>Drama</span>
+                            <span>Play</span>
+                        </div>
+
+                        <a href="#" class="btn btn-primary w-100">
+                            View Libraries
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- BFG -->
+            <div class="col-lg-4 col-md-6">
+
+                <article class="book-card">
+
+                    <div class="book-image-wrapper">
+                        <img
+                            src="{{url_for('static',path='/images/bfg.jpeg')}}"
+                            alt="The BFG book cover"
+                            class="book-image"
+                        >
+
+                        <span class="book-position">
+                            #2
+                        </span>
+                    </div>
+
+                    <div class="book-content">
+
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <strong>4.9</strong>
+                            <span>rating</span>
+                        </div>
+
+                        <h3>The BFG</h3>
+
+                        <p class="book-description">
+                            Join Sophie and the Big Friendly Giant
+                            on a magical adventure.
+                        </p>
+
+                        <div class="book-tags">
+                            <span>Adventure</span>
+                            <span>Fantasy</span>
+                        </div>
+
+                        <a href="#" class="btn btn-primary w-100">
+                            View Libraries
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- Othello -->
+            <div class="col-lg-4 col-md-6">
+
+                <article class="book-card">
+
+                    <div class="book-image-wrapper">
+                        <img
+                            src="{{url_for('static',path='/images/otheloo.jpg')}}"
+                            alt="Othello book cover"
+                            class="book-image"
+                        >
+
+                        <span class="book-position">
+                            #3
+                        </span>
+                    </div>
+
+                    <div class="book-content">
+
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <strong>4.8</strong>
+                            <span>rating</span>
+                        </div>
+
+                        <h3>Othello</h3>
+
+                        <p class="book-description">
+                            Shakespeare's tragedy exploring jealousy,
+                            trust and betrayal.
+                        </p>
+
+                        <div class="book-tags">
+                            <span>Drama</span>
+                            <span>Play</span>
+                        </div>
+
+                        <a href="#" class="btn btn-primary w-100">
+                            View Libraries
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Call to action -->
+<section class="cta-section">
+    <div class="container text-center">
+
+        <i class="fa-solid fa-book-open cta-icon"></i>
+
+        <h2>Ready to find your next book?</h2>
+
+        <p>
+            Explore our library collection and start reading today.
+        </p>
+
+        <a href="/books" class="btn btn-light btn-lg">
+            Explore Books
+        </a>
+
+    </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container text-center">
+
+        <span>
+            <i class="fa-regular fa-copyright"></i>
+            Daniel Fasure
+        </span>
+
+    </div>
+</footer>
+
+
 
 

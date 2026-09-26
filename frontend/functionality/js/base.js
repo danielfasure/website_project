@@ -387,3 +387,71 @@ let load_user_edit_button = document.getElementById("load_edit_user")
         // Redirect to the login page
         window.location.href = '/auth/login-page';
     };
+    
+document.addEventListener("DOMContentLoaded", () => {
+
+    /*
+     * Add a small interaction when a book card
+     * is clicked.
+     */
+
+    const bookCards = document.querySelectorAll(".book-card");
+
+    bookCards.forEach(card => {
+
+        card.addEventListener("click", (event) => {
+
+            // Don't trigger when clicking an actual link/button
+            if (event.target.closest("a")) {
+                return;
+            }
+
+            card.classList.toggle("selected");
+        });
+
+    });
+
+
+    /*
+     * Button loading state
+     */
+
+    const libraryButtons =
+        document.querySelectorAll(".book-card .btn");
+
+    libraryButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            button.classList.add("disabled");
+
+            const originalText = button.innerHTML;
+
+            button.innerHTML = `
+                <span
+                    class="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true">
+                </span>
+                Loading...
+            `;
+
+            /*
+             * This is only useful if you're eventually
+             * loading the library information with JS.
+             *
+             * Remove the timeout when you connect
+             * the button to your actual route/API.
+             */
+            setTimeout(() => {
+
+                button.classList.remove("disabled");
+                button.innerHTML = originalText;
+
+            }, 1000);
+
+        });
+
+    });
+
+});
+
