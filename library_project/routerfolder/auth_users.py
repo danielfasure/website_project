@@ -29,7 +29,7 @@ brcrypt_context =CryptContext(schemes=['bcrypt'],deprecated='auto')
 db_dependency = Annotated[Session,Depends(get_db)]
 
 ROUTER_DIR = os.path.dirname(os.path.abspath(__file__))
-TEMPLATES_DIR = os.path.join(ROUTER_DIR, "..", "..", "frontend", "webpages")
+TEMPLATES_DIR = os.path.join(ROUTER_DIR,  "..", "frontend", "webpages")
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 bcrypt_context = CryptContext(

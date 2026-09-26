@@ -1,0 +1,201 @@
+```css
+.register-page {
+    min-height: calc(100vh - 50px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    background: #f5f6f8;
+}
+
+
+/* Register card */
+
+.register-card {
+    width: 40vw;
+    min-width: 500px;
+    max-width: 750px;
+
+    padding: 35px;
+
+    background: white;
+
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    margin: auto;
+}
+
+
+/* Header */
+
+.register-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.register-header h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+
+.register-header p {
+    margin: 0;
+    color: #777;
+}
+
+
+/* Two-column rows */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+
+/* Form */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border: 1px solid #ccc;
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    background: white;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #555;
+
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Admin code */
+
+.admin-code {
+    padding: 15px;
+
+    margin-bottom: 20px;
+
+    background: #f7f7f7;
+
+    border-radius: 8px;
+
+    border: 1px solid #e5e5e5;
+}
+
+
+/* Register button */
+
+.register-button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #222;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background 0.2s;
+}
+
+.register-button:hover {
+    background: #444;
+}
+
+.register-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* Message */
+
+.register-message {
+    display: none;
+
+    margin: 0 0 15px;
+
+    text-align: center;
+
+    font-size: 14px;
+}
+
+
+/* Footer */
+
+.register-footer {
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #eee;
+
+    text-align: center;
+}
+
+.register-footer a {
+    color: #333;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.register-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .register-card {
+        width: 100%;
+        min-width: 0;
+        padding: 25px 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+}
+

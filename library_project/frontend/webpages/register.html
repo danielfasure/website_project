@@ -1,84 +1,157 @@
 {%include 'layout.html' %}  
 
-   
-    <div class="container">
-        <div class="card">
-      <div class = "card-header">
-        register
-      </div>
-      <div class="card-body">
+```html
+<div class="register-page">
+
+    <div class="register-card">
+
+        <div class="register-header">
+            <h1>Create Account</h1>
+            <p>Register for your library account</p>
+        </div>
+
         <form id="registerForm">
+
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>     Email       </label>
-                    <input type="email" class="form-control" name="email" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>username</label>
-                    <input type="text" class = "form-control" name="username" required>
 
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Choose a username"
+                        required
+                    >
                 </div>
 
             </div>
+
+
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>     first name       </label>
-                    <input type="text" class="form-control" name="first_name" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>lastname</label>
-                    <input type="text" class = "form-control" name="last_name" required>
 
-                </div>
-
-            </div>     
-             <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label>    seect your role       </label>
-                    <select id="roles" name="user_roles">
-                        <option value="admin">admin </option>
-                        <option value="user">user</option>
-                        <option value="librian">librian</option>
-                
-                    </select>
-                   
-                </div>
-               
-
-            </div>
-               <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>     password       </label>
-                    <input type="password" class="form-control" name="password" autocomplete="new-password" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>verify password </label>
-                    <input type="password" class = "form-control" name="password2"  autocomplete="new-password" required>
-
+                <div class="form-group">
+                    <label for="first_name">First name</label>
+                    <input
+                        type="text"
+                        id="first_name"
+                        name="first_name"
+                        placeholder="First name"
+                        required
+                    >
                 </div>
 
-
-            </div>
-            <div id ="enter_admin_code" class="form-row">
-            <div class=" form-group col-md-6">
-               
-                    <label for="admin_pin">what is the admin password </label>
-                    <input   type="text"  class="form-control"  id="admin_pin"   name="admin_pin">
+                <div class="form-group">
+                    <label for="last_name">Last name</label>
+                    <input
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        placeholder="Last name"
+                        required
+                    >
+                </div>
 
             </div>
 
-            </div>
-            <button type="submit" class="btn-primary"><i class="fa-regular fa-circle-check"></i> sign in</button>
-            
 
+            <div class="form-group">
+
+                <label for="roles">Select your role</label>
+
+                <select id="roles" name="user_roles" required>
+                    <option value="" disabled selected>
+                        Select a role
+                    </option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                    <option value="librian">Librarian</option>
+                </select>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        autocomplete="new-password"
+                        placeholder="Create a password"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password2">Verify password</label>
+                    <input
+                        type="password"
+                        id="password2"
+                        name="password2"
+                        autocomplete="new-password"
+                        placeholder="Repeat your password"
+                        required
+                    >
+                </div>
+
+            </div>
+
+
+            <div id="enter_admin_code" class="admin-code">
+
+                <div class="form-group">
+
+                    <label for="admin_pin">
+                        Admin password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="admin_pin"
+                        name="admin_pin"
+                        placeholder="Enter admin password"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <p id="registerMessage" class="register-message"></p>
+
+
+            <button type="submit" class="register-button">
+                <i class="fa-regular fa-circle-check"></i>
+                Create Account
+            </button>
 
         </form>
-      </div>
-      <div class="card-footer text-muted">
-            <a href="/"><button  class = "btn-primary"> <i class="fa-regular fa-house"></i>home</button ></a>
 
-          
 
- </div>
+        <div class="register-footer">
+
+            <a href="/">
+                <i class="fa-regular fa-house"></i>
+                Home
+            </a>
+
         </div>
-   </div>
+
+    </div>
+
+</div>
+```
